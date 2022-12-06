@@ -98,11 +98,11 @@ class S(BaseS):
             return S(torch.sigmoid(self.value), variables=self.variables)
 
     def lt(self, other):
-        value = self.value < self.other
+        value = self.value < other.value
         return S(value.float(), variables=self.variables | other.variables)
 
     def le(self, other):
-        value = self.value <= self.other
+        value = self.value <= other.value
         return S(value.float(), variables=self.variables | other.variables)
 
     def gt(self, other):
