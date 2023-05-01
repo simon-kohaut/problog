@@ -44,7 +44,9 @@ class ObservationWeight(object):
 
 
 class S(BaseS):
-    def __init__(self, tensor, variables=set(), dmu=0):
+    def __init__(self, tensor, variables=None, dmu=0):
+        if variables is None:
+            variables = set()
         self.dmu = dmu
         if isinstance(tensor, torch.Tensor) and bool(torch.all(torch.eq(tensor, 0.0))):
             tensor = 0.0
@@ -118,7 +120,7 @@ class S(BaseS):
         return S(value.float(), variables=self.variables | other.variables)
 
     def ne(self, other):
-        value = self.value == other.value
+        value = self.value != other.value
         return S(value.float(), variables=self.variables | other.variables)
 
 
@@ -142,7 +144,9 @@ class Pyro(Algebra):
             Tensor = torch.cuda.FloatTensor
         return Tensor
 
-    def symbolize(self, expression, variables=set(), dmu=0):
+    def symbolize(self, expression, variables=None, dmu=0):
+        if variables is None:
+            variables = set()
         if isinstance(expression, (int, float)):
             return S(float(expression), dmu=dmu)
         elif isinstance(expression, ObservationWeight):

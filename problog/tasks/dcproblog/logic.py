@@ -113,7 +113,10 @@ class LogicVectorConstant(Term):
 
 
 class SymbolicConstant(Term):
-    def __init__(self, value, args=(), cvariables=set()):
+    def __init__(self, value, args=(), cvariables=None):
+        if cvariables is None:
+            cvariables = set()
+    
         Term.__init__(self, value, *args)
         self.__cvariables = cvariables
 
