@@ -12,7 +12,9 @@ str2distribution = {
 
 
 class S(BaseS):
-    def __init__(self, psi_symbol, variables=set()):
+    def __init__(self, psi_symbol, variables=None):
+        if variables is None:
+            variables = set()
         BaseS.__init__(self, psi_symbol, variables)
 
     def __add__(self, other):
@@ -103,7 +105,9 @@ class PSI(Algebra):
     def __init__(self, values):
         Algebra.__init__(self, values)
 
-    def symbolize(self, expression, variables=set()):
+    def symbolize(self, expression, variables=None):
+        if variables is None:
+            variables = set()
         if isinstance(expression, (int, float)):
             return S(psipy.S(str(expression)))
         elif isinstance(expression, bool):

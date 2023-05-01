@@ -25,8 +25,15 @@ class LogicFormulaHAL(LogicFormula):
     LABEL_DQUERY = "density query"
 
     def __init__(
-        self, density_values={}, density_names={}, free_variables={}, **kwargs
+        self, density_values=None, density_names=None, free_variables=None, **kwargs
     ):
+        if density_values is None:
+            density_values = {}
+        if density_names is None:
+            density_names = {}
+        if free_variables is None:
+            free_variables = {}
+        
         LogicFormula.__init__(self, **kwargs)
         self.density_names = density_names
         self.density_values = density_values
