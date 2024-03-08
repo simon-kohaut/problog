@@ -128,20 +128,20 @@ class Pyro(Algebra):
     def __init__(self, values, n_samples, ttype, device):
         Algebra.__init__(self, values)
         self.Tensor = self.setup_tensor(ttype, device)
-        torch.set_default_tensor_type(self.Tensor)
+        torch.set_default_dtype(self.Tensor)
 
         self.n_samples = n_samples
         self.device = torch.device(device)
 
     def setup_tensor(self, ttype, device):
         if ttype == "float64" and device == "cpu":
-            Tensor = torch.DoubleTensor
+            Tensor = torch.float64
         elif ttype == "float32" and device == "cpu":
-            Tensor = torch.FloatTensor
+            Tensor = torch.float32
         elif ttype == "float64":
-            Tensor = torch.cuda.DoubleTensor
+            Tensor = torch.cuda.float64
         elif ttype == "float32":
-            Tensor = torch.cuda.FloatTensor
+            Tensor = torch.cuda.float32
         return Tensor
 
     def symbolize(self, expression, variables=None, dmu=0):
