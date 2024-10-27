@@ -23,7 +23,7 @@ Provides useful utilities functions and classes.
 """
 import collections
 import distutils.spawn
-import imp
+import importlib
 import logging
 import os
 import signal
@@ -361,8 +361,8 @@ def load_module(filename):
         filename = os.path.abspath(os.path.join(os.path.dirname(__file__), filename))
         (path, name) = os.path.split(filename)
         (name, ext) = os.path.splitext(name)
-        (extfile, filename, data) = imp.find_module(name, [path])
-        return imp.load_module(name, extfile, filename, data)
+        (extfile, filename, data) = importlib.find_module(name, [path])
+        return importlib.load_module(name, extfile, filename, data)
     else:
         mod = __import__(filename)
         components = filename.split(".")
